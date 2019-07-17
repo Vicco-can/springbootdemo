@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.springboot.example.springbootdemo.dao.CityMapper" >
+  <resultMap id="BaseResultMap" type="com.springboot.example.springbootdemo.model.City" >
+    <constructor >
+      <arg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="city_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="province_in" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="description" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <select id="findCityById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, city_name, province_in, description
+    from city
+    where id = #{id}
+  </select>
+  <insert id="insertCity" parameterType="com.springboot.example.springbootdemo.model.City" >
+    insert into city (id, city_name, province_in, description)
+    values (#{id,jdbcType=INTEGER}, #{cityName,jdbcType=VARCHAR}, #{provinceIn,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateCity" parameterType="com.springboot.example.springbootdemo.model.City" >
+    update city
+    set
+     (id=#{id}, city_name=#{cityName}, province_in=#{provinceIn}, description=#{description})
+  </update>
+  <delete id="deleteCity" parameterType="java.lang.Integer">
+    delete from city where id = #{id}
+  </delete>
+</mapper>
